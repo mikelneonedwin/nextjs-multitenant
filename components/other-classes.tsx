@@ -30,7 +30,7 @@ export function OtherClasses({ domain }: { domain: string }) {
         {data?.map((item) => (
           <a
             key={item.id}
-            href={`${item.slug}.${mainDomains}`}
+            href={`//${item.slug}.${mainDomains}`}
             className={cn(
               buttonVariants({
                 variant: "ghost",

@@ -5,7 +5,7 @@ import type { AppProduct } from "@/types";
 
 export async function getProductClassBySlug(slug: string) {
   try {
-    const result = await prisma.productClass.findUnique({
+    const result = await prisma.productClass.findUniqueOrThrow({
       where: {
         slug,
       },
@@ -30,6 +30,20 @@ export async function getCategoriesByClass(classId: string) {
     return result;
   } catch (error) {
     console.error("Error fetching categories:", error);
+    throw error;
+  }
+}
+
+export async function getCategoryById(id: string) {
+  try {
+    const result = await prisma.category.findUnique({
+      where: {
+        id,
+      },
+    });
+    return result;
+  } catch (error) {
+    console.error("Error fetching category:", error);
     throw error;
   }
 }

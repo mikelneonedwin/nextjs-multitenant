@@ -3,6 +3,9 @@ import { ProductGrid } from "@/components/product-grid";
 import { CategoryNav } from "@/components/category-nav";
 import { ProductGridSkeleton } from "@/components/skeletons/product-grid-skeleton";
 import { OtherClasses } from "@/components/other-classes";
+import type { Metadata } from "next";
+import { getCategoryById, getProductClassBySlug } from "@/actions";
+import clsx from "clsx";
 
 type Props = {
   params: Promise<{
@@ -12,6 +15,23 @@ type Props = {
     category?: string;
   }>;
 };
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
+  const { domain } = await params;
+  const { category } = await searchParams;
+  const productClass = await getProductClassBySlug(domain);
+  const productCategory = category ? await getCategoryById(category) : null;
+  return {
+    title: clsx(
+      productClass.name,
+      "Shop",
+      productCategory && `- ${productCategory.name}`,
+    ),
+  };
+}
 
 export default async function StorePage({ params, searchParams }: Props) {
   const { domain } = await params;
