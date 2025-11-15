@@ -1,0 +1,23 @@
+<svg
+  width="300"
+  height="300"
+  viewBox="0 0 300 300"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Product placeholder"
+>
+  <rect width="300" height="300" fill="#e0e0e0" />
+  <line x1="0" y1="0" x2="300" y2="300" stroke="#b0b0b0" stroke-width="4"/>
+  <line x1="300" y1="0" x2="0" y2="300" stroke="#b0b0b0" stroke-width="4"/>
+  <text
+    x="50%"
+    y="50%"
+    dominant-baseline="middle"
+    text-anchor="middle"
+    fill="#808080"
+    font-family="Arial, sans-serif"
+    font-size="20"
+  >
+    Product
+  </text>
+</svg>

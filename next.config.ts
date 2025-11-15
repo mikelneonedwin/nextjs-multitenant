@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
   experimental: {
     typedEnv: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "loremflickr.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

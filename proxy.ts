@@ -6,11 +6,14 @@ export function proxy(request: NextRequest) {
   const host = request.headers.get("host") ?? request.nextUrl.host;
   const domains = host.split(".");
   if (domains.length !== 3) return;
-  const schoolSlug = domains[0];
+  const slugDomain = domains[0];
   const rewriteTo = new URL(
-    `/school/${schoolSlug}${request.nextUrl.pathname}`,
+    `/s/${slugDomain}/${request.nextUrl.pathname}`.replaceAll("//", "/"),
     request.url,
   );
+  new URL(request.url).searchParams
+    .entries()
+    .forEach(([key, value]) => rewriteTo.searchParams.set(key, value));
   return NextResponse.rewrite(rewriteTo);
 }
 

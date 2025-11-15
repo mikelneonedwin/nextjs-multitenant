@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+
+// --------------------------------------------
+//  CLASS  (e.g. Electronics, Fashion, etc.)
+// --------------------------------------------
+model ProductClass {
+  id         String     @id @default(cuid())
+  name       String     @unique
+  slug       String     @unique
+  categories Category[]
+  products   Product[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@map("ProductClass")
+}
+
+// --------------------------------------------
+//  CATEGORY  (e.g. Phones, Men, Kitchen …)
+// --------------------------------------------
+model Category {
+  id        String       @id @default(cuid())
+  name      String
+  classId   String
+  class     ProductClass @relation(fields: [classId], references: [id])
+  products  Product[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@unique([name, classId]) // prevents duplicates within the same class
+  @@map("Category")
+}
+
+// --------------------------------------------
+//  PRODUCT
+// --------------------------------------------
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  brand       String?
+  description String?
+  price       Decimal
+  rating      Float?
+  stock       Int
+  specs       Json
+  classId     String
+  categoryId  String
+
+  class    ProductClass   @relation(fields: [classId], references: [id])
+  category Category       @relation(fields: [categoryId], references: [id])
+  images   ProductImage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([classId])
+  @@index([categoryId])
+  @@map("Product")
+}
+
+// --------------------------------------------
+//  PRODUCT IMAGES
+// --------------------------------------------
+model ProductImage {
+  id        String @id @default(cuid())
+  url       String
+  productId String
+
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("ProductImage")
+}
