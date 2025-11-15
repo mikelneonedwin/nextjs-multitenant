@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Multi-Tenant E-Commerce Platform
 
-## Getting Started
+A modern multi-tenant e-commerce platform built on **Next.js**, **Prisma**, and **Tailwind CSS** — designed to serve multiple storefronts from a **single codebase** and **single database**, with **automatic tenant detection via domain/sub-path**.
 
-First, run the development server:
+Each tenant represents a **`ProductClass`**, and has its own **unique storefront**, **categories**, and **product inventory**, while still sharing the same infrastructure. This makes it ideal for SaaS e-commerce, marketplace SaaS, or branded vendor deployments.
+
+---
+
+## 🧩 Key Features
+
+- **Single deployment, unlimited tenants**
+- **Isolated storefront catalog** (categories + products per tenant)
+- **Dynamic routing based on domain/sub-path**
+- **Automatic tenant resolution**
+- **Fully typed with Prisma + TypeScript**
+- **Shadcn + Radix UI component library**
+- **Clean, scalable folder architecture**
+
+---
+
+## 🛠️ Tech Stack
+
+| Category             | Technology                                 |
+| -------------------- | ------------------------------------------ |
+| Framework            | **Next.js 14+ (App Router)**               |
+| ORM                  | **Prisma**                                 |
+| Database             | **SQLite** (swap-ready for Postgres/MySQL) |
+| Styling              | **Tailwind CSS**                           |
+| UI Components        | **Radix UI**, **shadcn/ui**                |
+| Linting & Formatting | **ESLint**, **Prettier**                   |
+
+---
+
+## 🚩 Getting Started
+
+### **Prerequisites**
+
+- Node.js **v18+**
+- npm (or pnpm / yarn)
+- SQLite (bundled, no setup required)
+
+---
+
+### **Installation**
 
 ```bash
+# Clone the repo
+git clone https://github.com/mikelneonedwin/nextjs-multitenant.git
+
+# Enter the project directory
+cd nextjs-multitenant
+
+# Install dependencies
+npm install
+
+# Seed initial tenants, categories & products
+npx prisma db seed
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit → **[http://localhost:3000](http://localhost:3000)**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🗂️ Project Structure
 
-## Learn More
+```
+.
+├── app/                # App Router pages, layouts & tenant routing
+│   └── s/[domain]/     # Dynamic tenant storefront route
+├── components/         # Shared UI components
+├── actions/            # Server actions for data operations
+├── hooks/              # Custom client logic & fetch hooks
+├── lib/                # Utilities, helpers & constants
+├── prisma/             # Schema, migrations & seed data
+├── public/             # Static files (images, fonts, etc)
+└── types/              # Global TypeScript definitions
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🏪 Multi-Tenancy Model
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Each storefront is driven by a **`ProductClass`** record.
+The tenant is detected from the URL using `/s/[domain]`.
 
-## Deploy on Vercel
+Example:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/s/electronics` → Electronics storefront
+- `/s/fashion` → Fashion storefront
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Each tenant has **isolated data**, including:
+
+- Categories
+- Products
+- Display configurations
+
+This ensures **scalability**, **clean separation**, and **zero code duplication**.
+
+---
+
+## 🧭 Future Improvements
+
+- Support for custom domain mapping (CNAME or SaaS onboarding)
+- Tenant-specific themes
+- Per-tenant authentication + admin dashboard
+- Multi-DB deployment mode (Postgres / PlanetScale)
+
+---
+
+## 📄 License
+
+MIT (free for commercial and private use)
+
+---
+
+## 🤝 Contributing
+
+Pull requests and discussions are welcome!
+If you’d like to propose improvements, open an issue.
