@@ -22,7 +22,7 @@ Each tenant represents a **`ProductClass`**, and has its own **unique storefront
 
 | Category             | Technology                                 |
 | -------------------- | ------------------------------------------ |
-| Framework            | **Next.js 14+ (App Router)**               |
+| Framework            | **Next.js (App Router)**               |
 | ORM                  | **Prisma**                                 |
 | Database             | **SQLite** (swap-ready for Postgres/MySQL) |
 | Styling              | **Tailwind CSS**                           |
@@ -36,8 +36,7 @@ Each tenant represents a **`ProductClass`**, and has its own **unique storefront
 ### **Prerequisites**
 
 - Node.js **v18+**
-- npm (or pnpm / yarn)
-- SQLite (bundled, no setup required)
+- npm (or pnpm / yarn / bun)
 
 ---
 
@@ -98,15 +97,6 @@ Each tenant has **isolated data**, including:
 - Display configurations
 
 This ensures **scalability**, **clean separation**, and **zero code duplication**.
-
----
-
-## 🧭 Future Improvements
-
-- Support for custom domain mapping (CNAME or SaaS onboarding)
-- Tenant-specific themes
-- Per-tenant authentication + admin dashboard
-- Multi-DB deployment mode (Postgres / PlanetScale)
 
 ---
 
